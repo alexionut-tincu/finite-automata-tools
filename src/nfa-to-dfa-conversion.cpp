@@ -2,9 +2,9 @@
 
 #include <queue>
 
-DeterministicFiniteAutomaton NFAtoDFA(const NonDeterministicFiniteAutomaton &nfa)
+DeterministicFA NFAtoDFA(const NonDeterministicFA &nfa)
 {
-	DeterministicFiniteAutomaton dfa;
+	DeterministicFA dfa;
 
 	std::set<std::set<int>> dfa_states;
 	std::map<std::set<int>, int> dfa_states_mapping;

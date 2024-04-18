@@ -1,8 +1,8 @@
-#include "deterministic-finite-automaton.hpp"
+#include "deterministic-fa.hpp"
 
-DeterministicFiniteAutomaton::DeterministicFiniteAutomaton() {};
+DeterministicFA::DeterministicFA() {};
 
-void DeterministicFiniteAutomaton::AddTransition(const int start_state,
+void DeterministicFA::AddTransition(const int start_state,
 						 const char letter,
 						 const int end_state)
 {
@@ -10,7 +10,7 @@ void DeterministicFiniteAutomaton::AddTransition(const int start_state,
 	transitions_list_[start_state].insert(letter);
 }
 
-bool DeterministicFiniteAutomaton::AcceptWord(const std::string &word)
+bool DeterministicFA::AcceptWord(const std::string &word)
 {
 	int current_state = init_state_;
 
@@ -26,7 +26,7 @@ bool DeterministicFiniteAutomaton::AcceptWord(const std::string &word)
 	return true;
 }
 
-void DeterministicFiniteAutomaton::ReadDFA(std::istream &stream)
+void DeterministicFA::ReadDFA(std::istream &stream)
 {
 	stream >> states_count_;
 
@@ -58,7 +58,7 @@ void DeterministicFiniteAutomaton::ReadDFA(std::istream &stream)
 	}
 }
 
-void DeterministicFiniteAutomaton::PrintDFA(std::ostream &stream)
+void DeterministicFA::PrintDFA(std::ostream &stream)
 {
 	stream << states_count_ << std::endl;
 

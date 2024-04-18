@@ -1,14 +1,14 @@
-#ifndef DETERMINISTIC_FINITE_AUTOMATON_HPP
-#define DETERMINISTIC_FINITE_AUTOMATON_HPP
+#ifndef DETERMINISTIC_FA_HPP
+#define DETERMINISTIC_FA_HPP
 
 #include "finite-automaton.hpp"
 #include <iostream>
 #include <map>
 #include <string>
 
-class DeterministicFiniteAutomaton : public FiniteAutomaton {
+class DeterministicFA : public FiniteAutomaton {
 public:
-	DeterministicFiniteAutomaton();
+	DeterministicFA();
 
 	void AddTransition(const int start_state,
 			   const char letter,
@@ -25,4 +25,4 @@ private:
 	std::map<std::pair<int, char>, int> transition_function_;
 };
 
-#endif // DETERMINISTIC_FINITE_AUTOMATON_HPP
+#endif // DETERMINISTIC_FA_HPP

@@ -1,8 +1,8 @@
-#include "nondeterministic-finite-automaton.hpp"
+#include "nondeterministic-fa.hpp"
 
-NonDeterministicFiniteAutomaton::NonDeterministicFiniteAutomaton() {};
+NonDeterministicFA::NonDeterministicFA() {};
 
-void NonDeterministicFiniteAutomaton::AddTransition(const int start_state,
+void NonDeterministicFA::AddTransition(const int start_state,
 						     const char letter,
 						     const int end_state)
 {
@@ -10,7 +10,7 @@ void NonDeterministicFiniteAutomaton::AddTransition(const int start_state,
 	transitions_list_[start_state].insert(letter);
 }
 
-std::set<int> NonDeterministicFiniteAutomaton::GetTransitionDestinations
+std::set<int> NonDeterministicFA::GetTransitionDestinations
 	(const int state, const char letter) const
 {
 	if (transition_function_.count(std::make_pair(state, letter)) > 0) {
@@ -19,7 +19,7 @@ std::set<int> NonDeterministicFiniteAutomaton::GetTransitionDestinations
 	return std::set<int>();
 }
 
-bool NonDeterministicFiniteAutomaton::AcceptWord(const std::string &word)
+bool NonDeterministicFA::AcceptWord(const std::string &word)
 {
 	std::set<int> current_states = {init_state_};
 
@@ -48,7 +48,7 @@ bool NonDeterministicFiniteAutomaton::AcceptWord(const std::string &word)
 	return false;
 }
 
-void NonDeterministicFiniteAutomaton::ReadNFA(std::istream &stream)
+void NonDeterministicFA::ReadNFA(std::istream &stream)
 {
 	stream >> states_count_;
 
@@ -80,7 +80,7 @@ void NonDeterministicFiniteAutomaton::ReadNFA(std::istream &stream)
 	}
 }
 
-void NonDeterministicFiniteAutomaton::PrintNFA(std::ostream &stream)
+void NonDeterministicFA::PrintNFA(std::ostream &stream)
 {
 	stream << states_count_ << std::endl;
 

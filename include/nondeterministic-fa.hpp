@@ -1,5 +1,5 @@
-#ifndef NONDETERMINISTIC_FINITE_AUTOMATON_HPP
-#define	NONDETERMINISTIC_FINITE_AUTOMATON_HPP
+#ifndef NONDETERMINISTIC_FA_HPP
+#define	NONDETERMINISTIC_FA_HPP
 
 #include "finite-automaton.hpp"
 #include <iostream>
@@ -7,9 +7,9 @@
 #include <set>
 #include <string>
 
-class NonDeterministicFiniteAutomaton : public FiniteAutomaton {
+class NonDeterministicFA : public FiniteAutomaton {
 public:
-	NonDeterministicFiniteAutomaton();
+	NonDeterministicFA();
 
 	void AddTransition(const int start_state,
 			   const char letter,
@@ -29,4 +29,4 @@ private:
 	std::map<std::pair<int, char>, std::set<int>> transition_function_;
 };
 
-#endif // "NONDETERMINISTIC_FINITE_AUTOMATON_HPP"
+#endif // "NONDETERMINISTIC_FA_HPP"
