@@ -4,7 +4,7 @@ project(finite-automata-tools)
 
 set(CMAKE_CXX_STANDARD 11)
 
-file(GLOB SOURCES "src/*.cpp" "*.cpp")
+file(GLOB SOURCES "src/*.cpp" "main.cpp")
 
 add_executable(finite-automata-tools ${SOURCES})
 
