@@ -6,20 +6,30 @@ FiniteAutomaton::~FiniteAutomaton() {};
 
 void FiniteAutomaton::SetStatesCount(const size_t states)
 {
-	this->states_count_ = states;
+	states_count_ = states;
 }
 
 void FiniteAutomaton::AddState(const int state)
 {
-	this->states_.insert(state);
+	states_.insert(state);
 }
 
 void FiniteAutomaton::SetStateFinal(const int state)
 {
-	this->final_states_.insert(state);
+	final_states_.insert(state);
+}
+
+bool FiniteAutomaton::IsFinal(const int state) const
+{
+	return final_states_.count(state) > 0;
 }
 
 void FiniteAutomaton::SetInitState(const int state)
 {
-	this->init_state_;
+	init_state_ = state;
+}
+
+int FiniteAutomaton::GetInitState() const
+{
+	return init_state_;
 }

@@ -7,11 +7,21 @@ void NonDeterministicFiniteAutomaton::AddTransition(const int start_state,
 						     const int end_state)
 {
 	transition_function_[std::make_pair(start_state, letter)].insert(end_state);
+	transitions_list_[start_state].insert(letter);
+}
+
+std::set<int> NonDeterministicFiniteAutomaton::GetTransitionDestinations
+	(const int state, const char letter) const
+{
+	if (transition_function_.count(std::make_pair(state, letter)) > 0) {
+		return transition_function_.at(std::make_pair(state, letter));
+	}
+	return std::set<int>();
 }
 
 bool NonDeterministicFiniteAutomaton::AcceptWord(const std::string &word)
 {
-	std::set<int> current_states = {this->init_state_};
+	std::set<int> current_states = {init_state_};
 
 	for (char letter : word) {
 		std::set<int> next_states;
@@ -40,12 +50,12 @@ bool NonDeterministicFiniteAutomaton::AcceptWord(const std::string &word)
 
 void NonDeterministicFiniteAutomaton::ReadNFA(std::istream &stream)
 {
-	stream >> this->states_count_;
+	stream >> states_count_;
 
-	for (size_t i = 0; i < this->states_count_; ++i) {
+	for (size_t i = 0; i < states_count_; ++i) {
 		int state;
 		stream >> state;
-		this->states_.insert(state);
+		states_.insert(state);
 	}
 
 	size_t transitions_count;
@@ -55,10 +65,10 @@ void NonDeterministicFiniteAutomaton::ReadNFA(std::istream &stream)
 		int start_state, end_state;
 		char letter;
 		stream >> start_state >> end_state >> letter;
-		transition_function_[std::make_pair(start_state, letter)].insert(end_state);
+		AddTransition(start_state, letter, end_state);
 	}
 
-	stream >> this->init_state_;
+	stream >> init_state_;
 
 	size_t final_states_count;
 	stream >> final_states_count;
@@ -68,4 +78,35 @@ void NonDeterministicFiniteAutomaton::ReadNFA(std::istream &stream)
 		stream >> state;
 		final_states_.insert(state);
 	}
+}
+
+void NonDeterministicFiniteAutomaton::PrintNFA(std::ostream &stream)
+{
+	stream << states_count_ << std::endl;
+
+	for (int state : states_) {
+		stream << state << " ";
+	}
+	stream << std::endl;
+
+	stream << transition_function_.size() << std::endl;
+
+	for (const auto &transition : transition_function_) {
+		stream << transition.first.first << " "
+		       << transition.first.second << " "
+		       << transition.second.size() << " ";
+		for (int state : transition.second) {
+			stream << state << " ";
+		}
+		stream << std::endl;
+	}
+
+	stream << init_state_ << std::endl;
+
+	stream << final_states_.size() << std::endl;
+
+	for (int state : final_states_) {
+		stream << state << " ";
+	}
+	stream << std::endl;
 }

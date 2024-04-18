@@ -7,11 +7,12 @@ void DeterministicFiniteAutomaton::AddTransition(const int start_state,
 						 const int end_state)
 {
 	transition_function_[std::make_pair(start_state, letter)] = end_state;
+	transitions_list_[start_state].insert(letter);
 }
 
 bool DeterministicFiniteAutomaton::AcceptWord(const std::string &word)
 {
-	int current_state = this->init_state_;
+	int current_state = init_state_;
 
 	for (char letter : word) {
 		std::pair<int, char> transition = std::make_pair(current_state, letter);
@@ -27,12 +28,12 @@ bool DeterministicFiniteAutomaton::AcceptWord(const std::string &word)
 
 void DeterministicFiniteAutomaton::ReadDFA(std::istream &stream)
 {
-	stream >> this->states_count_;
+	stream >> states_count_;
 
-	for (size_t i = 0; i < this->states_count_; ++i) {
+	for (size_t i = 0; i < states_count_; ++i) {
 		int state;
 		stream >> state;
-		this->states_.insert(state);
+		states_.insert(state);
 	}
 
 	size_t transitions_count;
@@ -42,10 +43,10 @@ void DeterministicFiniteAutomaton::ReadDFA(std::istream &stream)
 		int start_state, end_state;
 		char letter;
 		stream >> start_state >> end_state >> letter;
-		transition_function_[std::make_pair(start_state, letter)] = end_state;
+		AddTransition(start_state, letter, end_state);
 	}
 
-	stream >> this->init_state_;
+	stream >> init_state_;
 
 	size_t final_states_count;
 	stream >> final_states_count;
@@ -55,4 +56,31 @@ void DeterministicFiniteAutomaton::ReadDFA(std::istream &stream)
 		stream >> state;
 		final_states_.insert(state);
 	}
+}
+
+void DeterministicFiniteAutomaton::PrintDFA(std::ostream &stream)
+{
+	stream << states_count_ << std::endl;
+
+	for (int state : states_) {
+		stream << state << " ";
+	}
+	stream << std::endl;
+
+	stream << transition_function_.size() << std::endl;
+
+	for (const auto &transition : transition_function_) {
+		stream << transition.first.first << " "
+		       << transition.second << " "
+		       << transition.first.second << std::endl;
+	}
+
+	stream << init_state_ << std::endl;
+
+	stream << final_states_.size() << std::endl;
+
+	for (int state : final_states_) {
+		stream << state << " ";
+	}
+	stream << std::endl;
 }
