@@ -1,11 +1,9 @@
-#ifndef FINITE-AUTOMATON_HPP
-#define FINITE-AUTOMATON_HPP
+#ifndef FINITE_AUTOMATON_HPP
+#define FINITE_AUTOMATON_HPP
 
 #include <istream>
-#include <map>
 #include <set>
-#include <string>
-#include <unordered_map>
+#include <stddef.h>
 
 class FiniteAutomaton {
 public:
@@ -20,11 +18,11 @@ public:
 
 	void SetInitState(const int state);
 
-private:
-	size_t states_count_;
+protected:
+	int states_count_;
 	std::set<int> states_;
 	std::set<int> final_states_;
 	int init_state_;
 };
 
-#endif //FINITE-AUTOMATON_HPP
+#endif //FINITE_AUTOMATON_HPP
