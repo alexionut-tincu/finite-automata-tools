@@ -19,6 +19,11 @@ std::set<int> NonDeterministicFA::GetTransitionDestinations
 	return std::set<int>();
 }
 
+std::map<std::pair<int, char>, std::set<int>> NonDeterministicFA::GetTransitionFunction() const
+{
+	return transition_function_;
+}
+
 bool NonDeterministicFA::AcceptWord(const std::string &word)
 {
 	std::set<int> current_states = {init_state_};

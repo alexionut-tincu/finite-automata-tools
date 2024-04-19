@@ -1,6 +1,8 @@
 #ifndef LAMBDA_NFA_HPP
 #define LAMBDA_NFA_HPP
 
+#define LAMBDA '$'
+
 #include "finite-automaton.hpp"
 #include <iostream>
 #include <map>
@@ -17,6 +19,8 @@ public:
 
 	std::set<int> GetTransitionDestinations(const int state,
 						const char letter) const;
+
+	std::map<std::pair<int, char>, std::set<int>> GetTransitionFunction() const;
 
 	void GenerateLambdaClosures();
 

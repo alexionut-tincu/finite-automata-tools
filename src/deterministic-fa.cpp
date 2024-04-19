@@ -10,6 +10,11 @@ void DeterministicFA::AddTransition(const int start_state,
 	transitions_list_[start_state].insert(letter);
 }
 
+std::map<std::pair<int, char>, int> DeterministicFA::GetTransitionFunction() const
+{
+	return transition_function_;
+}
+
 bool DeterministicFA::AcceptWord(const std::string &word)
 {
 	int current_state = init_state_;

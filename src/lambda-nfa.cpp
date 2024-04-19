@@ -1,9 +1,10 @@
 #include "lambda-nfa.hpp"
 #include <queue>
 
-#define LAMBDA '*'
-
-LambdaNFA::LambdaNFA() {};
+LambdaNFA::LambdaNFA()
+{
+	states_count_ = 0;
+}
 
 void LambdaNFA::AddTransition(const int start_state,
 			      const char letter,
@@ -21,6 +22,11 @@ std::set<int> LambdaNFA::GetTransitionDestinations(const int state,
 	return std::set<int>();
 }
 
+std::map<std::pair<int, char>, std::set<int>> LambdaNFA::GetTransitionFunction() const
+{
+	return transition_function_;
+}
+
 void LambdaNFA::GenerateLambdaClosures()
 {
 	for (int state : states_) {
@@ -31,18 +37,46 @@ void LambdaNFA::GenerateLambdaClosures()
 		while (queue.empty() == false) {
 			int current_state = queue.front();
 			queue.pop();
+
 			closure.insert(current_state);
 
-			for (int next_state : GetTransitionDestinations(current_state, LAMBDA)) {
-				if (closure.count(next_state) == 0) {
-					queue.push(next_state);
+			if (transition_function_.count(std::make_pair(current_state, LAMBDA)) > 0) {
+				for (int next_state : transition_function_.at(std::make_pair(current_state, LAMBDA))) {
+					if (closure.count(next_state) == 0) {
+						queue.push(next_state);
+					}
 				}
 			}
-
 		}
-
-		lambda_closures_[state] = closure;
+	
 	}
+}
+
+bool LambdaNFA::AcceptWord(const std::string &word)
+{
+	std::set<int> current_states = lambda_closures_.at(init_state_);
+
+	for (char letter : word) {
+		std::set<int> next_states;
+		for (int state : current_states) {
+			if (transition_function_.count(std::make_pair(state, letter)) > 0) {
+				for (int next_state : transition_function_.at(std::make_pair(state, letter))) {
+					next_states.insert(next_state);
+					next_states.insert(lambda_closures_.at(next_state).begin(),
+					 		   lambda_closures_.at(next_state).end());
+				}
+			}
+		}
+		current_states = next_states;
+	}
+
+	for (int state : current_states) {
+		if (final_states_.count(state) > 0) {
+			return true;
+		}
+	}
+
+	return false;
 }
 
 void LambdaNFA::ReadLambdaNFA(std::istream &stream)

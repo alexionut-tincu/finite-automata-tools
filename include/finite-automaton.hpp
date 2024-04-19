@@ -13,9 +13,15 @@ public:
 
 	void SetStatesCount(const size_t states);
 
+	size_t GetStatesCount() const;
+
 	void AddState(const int state);
 
+	std::set<int> GetAllStates() const;
+
 	void SetStateFinal(const int state);
+
+	void UnsetFinalStates();
 
 	bool IsFinal(const int state) const;
 

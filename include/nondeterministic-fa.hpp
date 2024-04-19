@@ -18,6 +18,8 @@ public:
 	std::set<int> GetTransitionDestinations(const int state,
 						const char letter) const;
 
+	std::map<std::pair<int, char>, std::set<int>> GetTransitionFunction() const;
+
 	bool AcceptWord(const std::string &word);
 
 	void ReadNFA(std::istream &stream);

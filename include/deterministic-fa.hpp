@@ -13,6 +13,8 @@ public:
 	void AddTransition(const int start_state,
 			   const char letter,
 			   const int end_state);
+	
+	std::map<std::pair<int, char>, int> GetTransitionFunction() const;
 		
 	bool AcceptWord(const std::string &word);
 
