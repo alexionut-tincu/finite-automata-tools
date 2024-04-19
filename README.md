@@ -32,15 +32,15 @@ The program accepts command-line arguments to specify the operation and the inpu
 ```
 
 - `[operation]`: Specifies the operation to perform. This can be one of the following:
-  - `re-to-lnfa`: Convert a regular expression to a lambda-NFA.
-  - `nfa-to-dfa`: Convert an NFA to a DFA.
+  - `--re-to-lnfa`: Convert a regular expression to a lambda-NFA.
+  - `--nfa-to-dfa`: Convert an NFA to a DFA.
 - `[input-file]`: Specifies the input file containing the data for the operation.
 - `[output-file]`: Specifies the output file where the result of the operation will be written.
 
 For example, to convert a regular expression to a lambda-NFA, you would run:
 
 ```sh
-./finite-automata-tools re-to-lnfa input.txt output.txt
+./finite-automata-tools --re-to-lnfa input.txt output.txt
 ```
 
 This will output a representation of the lambda-NFA that corresponds to the regular expression `(a|b)*abb`.
