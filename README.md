@@ -43,8 +43,6 @@ For example, to convert a regular expression to a lambda-NFA, you would run:
 ./finite-automata-tools --re-to-lnfa input.txt output.txt
 ```
 
-This will output a representation of the lambda-NFA that corresponds to the regular expression `(a|b)*abb`.
-
 ## Licensing
 
 The Finite Automata Tools project is licensed under the GNU General Public License v3.0. By contributing to the project, you agree that your contributions will be licensed under the same terms. For more details, please see the [`LICENSE.md`](command:_github.copilot.openRelativePath?%5B%22LICENSE.md%22%5D "LICENSE.md") file in the project repository.
